@@ -15,13 +15,13 @@ exports.up = function(knex, Promise) {
     table.increments();
     table
       .string("name", 128)
-      .notNullable()
+      .notNullable() //forcing a value to be entered
       .unique();
     table
       .integer("dish_id")
       .unsigned()
       .notNullable()
-      .references("id")
+      .references("id") //foreign key referencing the tracks table above - ORDER MATTERS
       .inTable("dishes")
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
@@ -40,7 +40,7 @@ exports.up = function(knex, Promise) {
       .integer("ingredients_id")
       .unsigned()
       .notNullable()
-      .references("id")
+      .references("id") 
       .inTable("ingredients")
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
