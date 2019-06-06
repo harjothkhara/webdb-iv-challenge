@@ -2,6 +2,9 @@
   "name": "webdb-iv-challenge",
   "version": "1.0.0",
   "main": "index.js",
+  "scripts": {
+    "server": "nodemon"
+  },
   "repository": "https://github.com/harjothkhara/webdb-iv-challenge.git",
   "author": "harjothkhara <harjoth.khara@gmail.com>",
   "license": "MIT",
