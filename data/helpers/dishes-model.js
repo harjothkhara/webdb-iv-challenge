@@ -14,8 +14,10 @@ async function find() {
 }
 
 async function findById(id) {
-  const dish = db("dishes")
-    .where({ id })
+  const dish = await db("dishes")
+    .select({ name: "dishes.name", id: "dishes.id", recipes: "recipes.name" })
+    .innerJoin("recipes", "recipes.dish_id", "dishes.id")
+    .where({ "dishes.id": id })
     .first();
   return dish;
 }
