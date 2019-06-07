@@ -1,49 +1,51 @@
 const db = require("../dbConfig.js");
 
 module.exports = {
-    find,
-    findById,
-    create,
-    remove,
-    update
+  find,
+  findById,
+  create,
+  remove,
+  update
 };
 
-function find() {
-    return db("dishes");
+async function find() {
+  const dishes = await db("dishes");
+  return dishes;
 }
 
-function findById(id){
-    return db("dishes")
+async function findById(id) {
+  const dish = db("dishes")
     .where({ id })
     .first();
+  return dish;
 }
 
-function create(item) {
-    return db("dishes")
-        .insert(item)
-        .then(([id]) => {
-            return findById(id);
-    });
+async function create(item) {
+  const [id] = await db("dishes").insert(item);
+  if (id) {
+    const dish = await findById(id);
+    return dish;
+  }
 }
 
 async function remove(id) {
-    const dish = await findById(id);
-    if(dish) {
-        const deleted = await db("dishes")
-            .where({ id })
-            .del();
-         return dish;
+  const dish = await findById(id);
+  if (dish) {
+    const deleted = await db("dishes")
+      .where({ id })
+      .del();
+    if (deleted) {
+      return dish;
     }
+  }
 }
 
 async function update(item, id) {
-    const editedDish = await db("dishes")
-        .where({ id })
-        .update(item);
-     if(editedDish) {
-         const dish = await findById(id);
-         return dish;
-     }   
+  const editedDish = await db("dishes")
+    .where({ id })
+    .update(item);
+  if (editedDish) {
+    const dish = await findById(id);
+    return dish;
+  }
 }
-
-function update(item, id) {}
