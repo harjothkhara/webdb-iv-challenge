@@ -36,4 +36,14 @@ async function remove(id) {
     }
 }
 
+async function update(item, id) {
+    const editedDish = await db("dishes")
+        .where({ id })
+        .update(item);
+     if(editedDish) {
+         const dish = await findById(id);
+         return dish;
+     }   
+}
+
 function update(item, id) {}

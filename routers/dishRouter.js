@@ -70,12 +70,9 @@ router.put("/:id", async (req, res) => {
         res.status(400).json({ message: "Please enter a valid dish name" });
     } else {
         try {
-            const editedDish = await db.update();
+            const editedDish = await db.update(newDish, id);
             if(editedDish) {
-                const dish = await db("dishes")
-                    .where({ id })
-                    .first();
-                res.status(200).json(dish);
+                res.status(200).json(editedDish);
             } else {
                 res.status(404).json({
                     message: "The dish with the specified ID does not exist."
