@@ -1,46 +1,46 @@
 const express = require("express");
 
-const db = require("../data/helpers/dishes-model.js");
+const db = require("../data/helpers/recipes-model.js");
 
 const router = express.Router();
 
 router.get("/", async (req, res) => {
     try {
-        const dishes = await db.find();
-        if (dishes) {
-            res.status(200).json(dishes);
+        const recipe = await db.find();
+        if (recipe) {
+            res.status(200).json(recipe);
         }
     } catch(error) {
-        res.status(500).json({ message: `Dishes could not be found ${error}.`});
+        res.status(500).json({ message: `Recipes could not be found ${error}.`});
     }
 });
 
 router.get("/:id", async (req, res) => {
     const { id } = req.params;
     try {
-        const dish = await db.findById(id);
-        if (dish) {
-            res.status(200).json(dish);
+        const recipe = await db.findById(id);
+        if (recipe) {
+            res.status(200).json(recipe);
         } else {
-            res.status(404).json({ message: "Dish with specified ID does not exist."});
+            res.status(404).json({ message: "Recipe with specified ID does not exist."});
         }
     } catch(error) {
-        res.status(500).json({ message: `Dish request failed ${error}`});
+        res.status(500).json({ message: `Recipe request failed ${error}`});
     }
 });
 
 router.post("/", async (req, res) => {
-    const dish = req.body;
-    if(!dish.name) {
-        res.status(400).json({ message: "Please enter a valid dish name"});
+    const recipe = req.body;
+    if(!recipe.name) {
+        res.status(400).json({ message: "Please enter a valid recipe name"});
     } else {
       try {
-          const newDish = await db.create(dish);
-          if(newDish) {
-              res.status(201).json(newDish);
+          const newRecipe = await db.create(recipe);
+          if(newRecipe) {
+              res.status(201).json(newRecipe);
           }
       } catch(error) {
-          res.status(500).json({ message: `Your dish could not be posted ${error}`});
+          res.status(500).json({ message: `Your recipe could not be posted ${error}`});
       }
     }
 });
@@ -48,38 +48,38 @@ router.post("/", async (req, res) => {
 router.delete("/:id", async(req,res) => {
     const { id } = req.params;
     try {
-        const dish = await db.remove(id);
-        if (dish) {
-              res.status(200).json(dish);
+        const recipe = await db.remove(id);
+        if (recipe) {
+              res.status(200).json(recipe);
         } else {
-            res.status(404).json({ message: "The dish with the specified ID does not exist"});
+            res.status(404).json({ message: "The recipe with the specified ID does not exist"});
         }
     } catch(error) {
         res.status(500).json({ 
-            message: ` The dish's information could not be modified ${error}.`
+            message: ` The recipe's information could not be modified ${error}.`
       });
     }
 });
 
 router.put("/:id", async (req, res) => {
     const { id } = req.params;
-    const newDish = req.body;
+    const newRecipe = req.body;
 
-    if (!newDish.name) {
-        res.status(400).json({ message: "Please enter a valid dish name" });
+    if (!newRecipe.name) {
+        res.status(400).json({ message: "Please enter a valid recipe name" });
     } else {
         try {
-            const editedDish = await db.update(newDish, id);
-            if(editedDish) {
-                res.status(200).json(editedDish);
+            const editedRecipe = await db.update(newRecipe, id);
+            if(editedRecipe) {
+                res.status(200).json(editedRecipe);
             } else {
                 res.status(404).json({
-                    message: "The dish with the specified ID does not exist."
+                    message: "The recipe with the specified ID does not exist."
                 });
             }
         } catch(error) {
             res.status(500).json({
-                message: `The dish's information could not be modified: ${error}.`
+                message: `The recipe's information could not be modified: ${error}.`
             });
         }
     }   

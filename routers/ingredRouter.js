@@ -1,46 +1,46 @@
 const express = require("express");
 
-const db = require("../data/helpers/dishes-model.js");
+const db = require("../data/helpers/ingred-model.js");
 
 const router = express.Router();
 
 router.get("/", async (req, res) => {
     try {
-        const dishes = await db.find();
-        if (dishes) {
-            res.status(200).json(dishes);
+        const ingredients = await db.find();
+        if (ingredients) {
+            res.status(200).json(ingredients);
         }
     } catch(error) {
-        res.status(500).json({ message: `Dishes could not be found ${error}.`});
+        res.status(500).json({ message: `Ingredients could not be found ${error}.`});
     }
 });
 
 router.get("/:id", async (req, res) => {
     const { id } = req.params;
     try {
-        const dish = await db.findById(id);
-        if (dish) {
-            res.status(200).json(dish);
+        const ingredients = await db.findById(id);
+        if (ingredients) {
+            res.status(200).json(ingredients);
         } else {
-            res.status(404).json({ message: "Dish with specified ID does not exist."});
+            res.status(404).json({ message: "Ingredients with specified ID does not exist."});
         }
     } catch(error) {
-        res.status(500).json({ message: `Dish request failed ${error}`});
+        res.status(500).json({ message: `Ingredients request failed ${error}`});
     }
 });
 
 router.post("/", async (req, res) => {
-    const dish = req.body;
-    if(!dish.name) {
-        res.status(400).json({ message: "Please enter a valid dish name"});
+    const ingredients = req.body;
+    if(!ingredients.name) {
+        res.status(400).json({ message: "Please enter a valid ingredients name"});
     } else {
       try {
-          const newDish = await db.create(dish);
-          if(newDish) {
-              res.status(201).json(newDish);
+          const newIngredients = await db.create(ingredients);
+          if(newIngredients) {
+              res.status(201).json(newIngredients);
           }
       } catch(error) {
-          res.status(500).json({ message: `Your dish could not be posted ${error}`});
+          res.status(500).json({ message: `Your ingredients could not be posted ${error}`});
       }
     }
 });
@@ -48,38 +48,38 @@ router.post("/", async (req, res) => {
 router.delete("/:id", async(req,res) => {
     const { id } = req.params;
     try {
-        const dish = await db.remove(id);
-        if (dish) {
-              res.status(200).json(dish);
+        const ingredients = await db.remove(id);
+        if (ingredients) {
+              res.status(200).json(ingredients);
         } else {
-            res.status(404).json({ message: "The dish with the specified ID does not exist"});
+            res.status(404).json({ message: "The ingredients with the specified ID does not exist"});
         }
     } catch(error) {
         res.status(500).json({ 
-            message: ` The dish's information could not be modified ${error}.`
+            message: ` The ingredients information could not be modified ${error}.`
       });
     }
 });
 
 router.put("/:id", async (req, res) => {
     const { id } = req.params;
-    const newDish = req.body;
+    const newIngredients = req.body;
 
-    if (!newDish.name) {
-        res.status(400).json({ message: "Please enter a valid dish name" });
+    if (!newIngredients.name) {
+        res.status(400).json({ message: "Please enter a valid ingredients name" });
     } else {
         try {
-            const editedDish = await db.update(newDish, id);
-            if(editedDish) {
-                res.status(200).json(editedDish);
+            const editedIngredients = await db.update(newIngredients, id);
+            if(editedIngredients) {
+                res.status(200).json(editedIngredients);
             } else {
                 res.status(404).json({
-                    message: "The dish with the specified ID does not exist."
+                    message: "The ingredients with the specified ID does not exist."
                 });
             }
         } catch(error) {
             res.status(500).json({
-                message: `The dish's information could not be modified: ${error}.`
+                message: `The ingredients information could not be modified: ${error}.`
             });
         }
     }   
