@@ -31,19 +31,21 @@ router.get("/:id", async (req, res) => {
 
 router.post("/", async (req, res) => {
     const recipe = req.body;
-    if(!recipe.name) {
-        res.status(400).json({ message: "Please enter a valid recipe name"});
+    if (!recipe.name) {
+      res.status(400).json({ message: "Please enter a valid recipe name." });
     } else {
       try {
-          const newRecipe = await db.create(recipe);
-          if(newRecipe) {
-              res.status(201).json(newRecipe);
-          }
-      } catch(error) {
-          res.status(500).json({ message: `Your recipe could not be posted ${error}`});
+        const newrecipe = await db.create(recipe);
+        if (newrecipe) {
+          res.status(201).json(newrecipe);
+        }
+      } catch (error) {
+        res
+          .status(500)
+          .json({ message: `Your recipe could not be posted ${error}.` });
       }
     }
-});
+  });
 
 router.delete("/:id", async(req,res) => {
     const { id } = req.params;

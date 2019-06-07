@@ -49,5 +49,3 @@ async function update(item, id) {
          return ingredient;
      }   
 }
-
-function update(item, id) {}

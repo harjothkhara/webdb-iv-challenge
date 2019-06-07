@@ -10,8 +10,8 @@ const server = express();
 server.use(helmet());
 server.use(express.json());
 
-server.use("/api/dishes, dishRouter");
-server.use("/api/recipes, recipeRouter");
-server.use("/api/ingredients, ingredRouter");
+server.use("/api/dishes", dishRouter);
+server.use("/api/recipes", recipeRouter);
+server.use("/api/ingredients", ingredRouter);
 
-module.exports = server
+module.exports = server;
