@@ -1,8 +1,8 @@
 exports.seed = function(knex, Promise) {
   return knex("recipes").insert([
-    { name: "Placeholder Lasagna Recipe", dish_id: 1 },
-    { name: "Placeholder Flan Recipe", dish_id: 2 },
+    { name: "Tomatoes, Cheese, Pasta", dish_id: 1 },
+    { name: "Flour, Eggs, Sugar", dish_id: 2 },
     { name: "Placeholder Ziti RecipeBaked", dish_id: 3 },
-    { name: "Placeholder Pizza Recipe", dish_id: 4 }
+    { name: "Pepperoni, Cheese, Tomatoes", dish_id: 4 }
   ]);
 };

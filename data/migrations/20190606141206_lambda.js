@@ -36,16 +36,16 @@ exports.up = function(knex, Promise) {
       .integer("recipe_id")
       .unsigned()
       .notNullable()
-      .references("id")
-      .inTable("recipes")
+      .references("id") //foreign key ref
+      .inTable("recipes") //foreign key ref
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
     table
       .integer("ingredients_id")
       .unsigned()
       .notNullable()
-      .references("id") 
-      .inTable("ingredients")
+      .references("id")  //foreign key ref
+      .inTable("ingredients") //foreign key ref
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
   });

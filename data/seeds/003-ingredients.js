@@ -4,6 +4,9 @@ exports.seed = function(knex, Promise) {
     { name: "Tomatoes" },
     { name: "Sugar" },
     { name: "Flour" },
-    { name: "Eggs" }
+    { name: "Eggs" },
+    { name: "Pepperoni" },
+    { name: "Cheese" },
+    { name: "Pasta" }
   ]);
 };
